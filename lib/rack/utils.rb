@@ -476,7 +476,7 @@ module Rack
                 content_type = head[/Content-Type: (.*)#{EOL}/ni, 1]
                 name = head[/Content-Disposition:.*\s+name="?([^\";]*)"?/ni, 1] || head[/Content-ID:\s*([^#{EOL}]*)/ni, 1]
 
-                if content_type || filename
+                if filename
                   body = Tempfile.new("RackMultipart")
                   body.binmode  if body.respond_to?(:binmode)
                 end
@@ -518,7 +518,7 @@ module Rack
 
               data = {:filename => filename, :type => content_type,
                       :name => name, :tempfile => body, :head => head}
-            elsif !filename && content_type
+            elsif !filename && content_type && body.is_a?(IO)
               body.rewind
 
               # Generic multipart cases, not coming from a form

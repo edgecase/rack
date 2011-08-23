@@ -416,6 +416,12 @@ context "Rack::Utils::Multipart" do
     params["files"][:tempfile].read.should.equal ""
   end
 
+  specify "should allow content-type to be specified on non-file parameters" do
+    env = Rack::MockRequest.env_for("/", multipart_fixture(:content_type))
+    params = Rack::Utils::Multipart.parse_multipart(env)
+    params["destination"].should.equal "Zion"
+  end
+
   specify "should parse multipart upload with filename with semicolons" do
     env = Rack::MockRequest.env_for("/", multipart_fixture(:semicolon))
     params = Rack::Utils::Multipart.parse_multipart(env)

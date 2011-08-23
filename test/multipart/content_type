@@ -1,0 +1,12 @@
+--AaB03x
+Content-Disposition: form-data; name="destination"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+
+Zion
+--AaB03x
+Content-Disposition: form-data; name="files"; filename="file1.txt"
+Content-Type: text/plain
+
+contents
+--AaB03x--
